@@ -31,7 +31,9 @@ const userSchema = new Schema({
     type:String,
     required: true,
     enum: ["Male","Female"]
-
+  },
+  sugest:{
+    type: Number
   }
 })
 
