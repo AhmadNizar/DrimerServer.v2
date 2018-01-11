@@ -8,10 +8,12 @@ const history = new Schema({
     ref: 'Users'
   },
   drinkWater: {
-    type: Number
+    type: Number,
+    required: true
   },
   stepDay: {
-    type: Number
+    type: Number,
+    required: true
   },
   dayWeather: {
     type: String
