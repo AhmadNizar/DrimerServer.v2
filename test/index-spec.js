@@ -167,24 +167,24 @@ describe('History Test', ()=>{
     chai.request(server)
     .post('/history')
     .send({
-      'userHistory':'',
+      'userHistory':'5a574dce397fbd00101e004b',
       'drinkWater':'2',
       'stepDay':'1234',
       'dayWeather':'Clouds',
-      'sugest': '2,1',
       'createdAt': '0980',
       'drinkTime': '098123908'
     })
     .end((err, res) => {
+      console.log(res.body)
       res.body.should.be.an('object')
       res.status.should.equal(200)
       res.body.should.have.property('userHistory')
       res.body.should.have.property('drinkWater')
       res.body.should.have.property('stepDay')
       res.body.should.have.property('dayWeather')
-      res.body.should.have.property('sugest')
       res.body.should.have.property('createdAt')
       res.body.should.have.property('drinkTime')
+      done()
     })
   })
 })
