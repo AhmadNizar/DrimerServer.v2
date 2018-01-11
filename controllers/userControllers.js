@@ -44,7 +44,7 @@ var loginUser = (req,res)=>{
         var token = jwt.sign({
           _id:result._id,
           email: result.email,
-          name: result.name          
+          name: result.name
         },'halo')
         res.status(200).send({userToken: token})
       }else{
@@ -72,7 +72,6 @@ var deleteUser =(req,res)=>{
 var editUser = (req,res) => {
   User.findByIdAndUpdate(req.params.id,{
     name: req.body.name,
-    username: req.body.username,
     password: req.body.password,
     email: req.body.email,
     age: req.body.email,
@@ -86,9 +85,11 @@ var editUser = (req,res) => {
     res.send(err)
   })
 }
+
 module.exports = {
   findAllUser,
   registerUser,
   loginUser,
-  deleteUser
+  deleteUser,
+  editUser
 };
