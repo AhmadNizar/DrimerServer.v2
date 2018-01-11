@@ -10,7 +10,7 @@ mongoose.connect('mongodb://AhmadNizar:cBnmgEXaknFbpUNN@ahmadnizardb-shard-00-00
   if(!err) {
     console.log('DATABASE TERHUBUNG');
   } else {
-    console.log('TIDAK TERHUBUNG DATABASE');
+    console.log('TIDAK TERHUBUNG DATABASE',err);
   }
 })
 
