@@ -21,8 +21,8 @@ const userSchema = new Schema({
   gender:{
     type:String
   },
-  activity:{
-    type:String
+  sugest:{
+    type: Number
   }
 })
 

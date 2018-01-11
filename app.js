@@ -16,9 +16,11 @@ mongoose.connect('mongodb://AhmadNizar:cBnmgEXaknFbpUNN@ahmadnizardb-shard-00-00
 
 const index = require('./routes/index')
 const user = require('./routes/user')
+const history = require('./routes/history')
 
 app.use('/',index)
 app.use('/user',user)
+app.use('/history', history)
 
 app.listen((process.env.PORT || '3000'), () => {
 	console.log('jalan port 3000 tong');
