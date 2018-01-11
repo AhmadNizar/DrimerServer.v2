@@ -40,7 +40,7 @@ var loginUser = (req,res)=>{
   })
   .then( result =>{
     if(result === null){
-      res.send('Invalid')
+      res.status(404).send({loginStatus: 'Invalid'})
     }else{
       if(bcrypt.compareSync(req.body.password, result.password)){
         var token = jwt.sign({
@@ -48,10 +48,9 @@ var loginUser = (req,res)=>{
           email: result.email,
           name: result.name          
         },'halo')
-        console.log('ini,dat,',token)
-        res.send(token)
+        res.status(200).send({userToken: token})
       }else{
-        res.send('Invalid')
+        res.status(404).send({loginStatus: 'Invalid'})
       }
     }
   })
