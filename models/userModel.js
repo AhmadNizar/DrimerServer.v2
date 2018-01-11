@@ -8,12 +8,8 @@ var validateEmail = function(email){
 }
 const userSchema = new Schema({
   name: {
-<<<<<<< HEAD
     type:String,
     required:true
-=======
-    type:String
->>>>>>> userdata
   },
   password:{
     type:String,
