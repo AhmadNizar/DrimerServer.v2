@@ -12,10 +12,22 @@ const findAllHistory = (req, res)=>{
 
 const createHistoryUser = (req,res) => {
   History.create({
-    
+    userHistory : req.body.userHistory,
+    drinkWater : req.body.drinkWater,
+    stepDay : req.body.stepDay,
+    dayWeather : req.body.dayWeather,
+    createdAt: req.body.createdAt,
+    drinkTime: req.body.drinkTime
+  })
+  .then(result =>{
+    res.send(result)
+  })
+  .catch(err => {
+    res.send(err)
   })
 }
 
 module.exports = {
-  findAllHistory
+  findAllHistory,
+  createHistoryUser
 }

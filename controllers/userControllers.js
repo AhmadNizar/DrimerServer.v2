@@ -14,7 +14,6 @@ var findAllUser= (req,res)=>{
 }
 
 var registerUser = (req,res)=>{
-  // console.log(req)
   var salt = bcrypt.genSaltSync(10)
   var hash = bcrypt.hashSync(req.body.password, salt)
   User.create({
@@ -69,6 +68,24 @@ var deleteUser =(req,res)=>{
   })
   .catch(err=>{
     console.error(err)
+  })
+}
+
+var editUser = (req,res) => {
+  User.findByIdAndUpdate(req.params.id,{
+    name: req.body.name,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    age: req.body.email,
+    gender: req.body.gender,
+    sugest: req.body.sugest
+  })
+  .then(result => {
+    res.send('User has been Updated')
+  })
+  .catch(err => {
+    res.send(err)
   })
 }
 module.exports = {
