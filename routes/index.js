@@ -7,4 +7,8 @@ router.get('/',UserController.findAllUser)
 
 module.exports = router;
 
+<<<<<<< HEAD
 //development branch
+=======
+//register branch
+>>>>>>> register

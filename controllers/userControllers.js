@@ -24,13 +24,12 @@ var registerUser = (req,res)=>{
     email: req.body.email,
     age: req.body.age,
     gender: req.body.gender,
-    activity: req.body.activity,
   })
   .then(result=>{
-    res.send(result)
+    res.status(200).send(result)
   })
   .catch(err=>{
-    console.error(err)
+    res.status(400).send(err)
   })
 }
 
