@@ -67,6 +67,7 @@ describe('Login', () => {
       done()
     })
   })
+})
 
 describe('Register', () => {
   it('Register', (done) => {
