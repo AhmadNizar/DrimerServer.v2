@@ -10,6 +10,7 @@ describe('App', () => {
     chai.request(server)
     .get('/')
     .end((err,res) => {
+      console.log(res.body)
       res.body.should.be.an('array')
       done()
     })

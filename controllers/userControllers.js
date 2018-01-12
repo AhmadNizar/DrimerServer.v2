@@ -5,77 +5,32 @@ require('dotenv').config
 
 class UserCtrl {
 
-  static findAllUser (req, res) {
-    User.find()
-    .then(result => {
-      res.status(200).send(result)
-    })
-    .catch(err => {
-      res.status(500).err
-    })
+  static async findAllUser (req, res) {
+    try {
+      res.status(200).send(await User.find())
+    } catch(err) {
+      res.status(500).send(err)
+    }
   }
 
-  static registerUser (req, res) {
+  static async registerUser (req, res) {
 
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.password, salt)
 
-    User.create({
-      name: req.body.name,
-      salt: salt,
-      password: hash,
-      email: req.body.email,
-      age: req.body.age,
-      gender: req.body.gender,
-    })
-    .then(result  =>  {
-      res.status(200).send(result)
-    })
-    .catch(err => {
+    try {
+      let userData = await User.create({
+        name: req.body.name,
+        salt: salt,
+        password: hash,
+        email: req.body.email,
+        age: req.body.age,
+        gender: req.body.gender,
+      })
+      res.status(200).send(userData)
+    } catch (err) {
       res.status(500).send(err)
-    })
-  }
-
-  static registerUser (req, res) {
-
-    const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(req.body.password, salt)
-
-    User.create({
-      name: req.body.name,
-      salt: salt,
-      password: hash,
-      email: req.body.email,
-      age: req.body.age,
-      gender: req.body.gender,
-    })
-    .then(result => {
-      res.status(200).send(result)
-    })
-    .catch(err => {
-      res.status(500).send(err)
-    })
-  }
-
-  static registerUser (req, res) {
-
-    const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(req.body.password, salt)
-
-    User.create({
-      name: req.body.name,
-      salt: salt,
-      password: hash,
-      email: req.body.email,
-      age: req.body.age,
-      gender: req.body.gender,
-    })
-    .then(result => {
-      res.status(200).send(result)
-    })
-    .catch(err => {
-      res.status(500).send(err)
-    })
+    }
   }
 
   static loginUser (req, res) {
@@ -108,31 +63,33 @@ class UserCtrl {
     .catch(err => res.status(500).send(err))
   }
 
-  static deleteUser (req, res) {
-    User.deleteOne({
-      _id: req.params.id
-    })
-    .then(result => res.status(200).end(result))
-    .catch(err => res.status(500).send(err))
+  static async deleteUser (req, res) {
+    try {
+      let deletedUser = await User.deleteOne({_id: req.params.id})
+      res.status(200).end(deletedUser)
+    } catch (err) {
+      res.status(500).send(err)
+    }
   }
 
-  static editUser (req, res) {
-    User.findById(req.params.id)
-    .then(userData => {
-      userData.name = req.body.name || userData.name,
-      userData.password = req.body.password || userData.password,
-      userData.email = req.body.email || userData.email,
-      userData.age = req.body.age || userData.age,
-      userData.gender = req.body.gender || userData.gender,
-      userData.sugest = req.body.sugest || userData.sugest
+  static async editUser (req, res) {
 
-      userData.save()
-      .then(newUserData => res.status(200).send(newUserData))
-      .catch(err => res.status(500).send(err))
-    })
-    .catch(err => {
+    try {
+      let userData = await User.findById(req.params.id)
+      async userData => {
+        userData.name     = req.body.name || userData.name,
+        userData.password = req.body.password || userData.password,
+        userData.email    = req.body.email || userData.email,
+        userData.age      = req.body.age || userData.age,
+        userData.gender   = req.body.gender || userData.gender,
+        userData.sugest   = req.body.sugest || userData.sugest
+
+        let newUserData = await userData.save()
+        res.status(200).send(newUserData)
+      }
+    } catch (err) {
       res.status(500).send(err)
-    })
+    }
   }
 }
 
