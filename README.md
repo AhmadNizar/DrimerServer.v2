@@ -10,9 +10,9 @@ End point table User:
 |----------------|-------------------------------|-----------------------------|-----------------------|
 |/|`GET'`            |Get all data user            | |
 |/user/login|`POST`            |Login User            |<ul><li>[x] name</li><li>[x] password</li><li>[x] email</li><li>[x] age</li><li>[x] gender</li><li>[x] sugest</li></ul>
-|/user/register|`POST`|Register User|<ul><li>[x]password</li><li>[x]email</li></ul>
+|/user/register|`POST`|Register User|<ul><li>[x] password</li><li>[x] email</li></ul>
 |/user/edit/:id|`PUT`|Edit User|<ul><li>[x]_id<li>[x] name</li><li>[x] email</li><li>[x] age</li><li>[x] gender</li><li>[x] sugest</li></li></ul>
-|/user/delete/:id|`DELETE`|Delete User|<ul><li>_id</li></ul>
+|/user/delete/:id|`DELETE`|Delete User|<ul><li>[x] _id</li></ul>
 
 
 ### History User:
