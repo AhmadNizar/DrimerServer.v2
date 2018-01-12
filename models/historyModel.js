@@ -12,20 +12,17 @@ const history = new Schema({
     required: true
   },
   stepDay: {
-    type: Number,
-    required: true
+    type: Number
   },
   dayWeather: {
     type: String
   },
   createdAt: {
     type: Date,
-    required: true,
     default: Date.now
   },
   drinkTime: [{
-    type: String,
-    required: true
+    type: String
   }]
 })
 

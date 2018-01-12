@@ -16,41 +16,45 @@ describe('App', function () {
   })
 })
 
-// describe('History Test', ()=>{
-//   it('Get Data History from /history', function(done){
-//     chai.request(server)
-//     .get('/history')
-//     .end((err, res) => {
-//       res.body.should.be.an('array')
-//       done()
-//     })
-//   })
-//   it('Post data to Histroty from /history', (done)=>{
-//     chai.request(server)
-//     .post('/history')
-//     .send({
-//       'userHistory':'5a5834a36f07941c3e936698',
-//       'drinkWater':'2',
-//       'stepDay':'1234',
-//       'dayWeather':'Clouds',
-//       'sugest': '2,1',
-//       'createdAt': '0980',
-//       'drinkTime': '098123908'
-//     })
-//     .end((err, res) => {
-//       res.body.should.be.an('object')
-//       res.status.should.equal(200)
-//       res.body.should.have.property({userHistory})
-//       res.body.should.have.property({drinkWater})
-//       res.body.should.have.property({stepDay})
-//       res.body.should.have.property({dayWeather})
-//       res.body.should.have.property({sugest})
-//       res.body.should.have.property({createdAt})
-//       res.body.should.have.property({drinkTime})
-//       done()
-//     })
-//   })
-// })
+describe('History Test', ()=>{
+  it('Get Data History from /history', function(done){
+    chai.request(server)
+    .get('/history')
+    .end((err, res) => {
+      res.body.should.be.an('object')
+      done()
+    })
+  })
+  it('Post data to Histroty from /history', (done)=>{
+    chai.request(server)
+    .post('/history')
+    .send({
+      'userHistory':'5a5834a36f07941c3e936698',
+      'drinkWater':'2',
+      'stepDay':'1234',
+      'dayWeather':'Clouds',
+      'sugest': '2,1',
+      'createdAt': '0980',
+      'drinkTime': '098123908'
+    })
+    .end((err, res) => {
+      if(!err){
+        res.body.should.be.an('object')
+        res.status.should.equal(200)
+        res.body.should.have.property('userHistory')
+        res.body.should.have.property('drinkWater')
+        res.body.should.have.property('stepDay')
+        res.body.should.have.property('dayWeather')
+        res.body.should.have.property('sugest')
+        res.body.should.have.property('createdAt')
+        res.body.should.have.property('drinkTime')
+      }else{
+        res.status.should.equal(400)
+      }
+      done()
+    })
+  })
+})
 
 // describe('User' , () => {
 //   it ('Edit Data User from data record from /edit/:id' , (done) => {

@@ -17,7 +17,7 @@ const createHistoryUser = (req,res) => {
     stepDay : req.body.stepDay,
     createdAt: req.body.createdAt,
     drinkTime: req.body.drinkTime,
-    dayWeather : req.body.dayWeather,
+    dayWeather : req.body.dayWeather
   })
   .then(result =>{
     res.status(200).send(result)
