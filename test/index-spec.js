@@ -18,7 +18,6 @@ describe('App', () => {
 
 describe('Login', () => {
   it('Post Email and Password', (done) => {
-    // this.timeout(10000)
     chai.request(server)
     .post('/user/login')
     .send({
@@ -37,8 +36,7 @@ describe('Login', () => {
       }
     })
   })
-  it('Post invalid Email', (done) => {
-    // this.timeout(1000)
+  it('Post Empty Email', (done) => {
     chai.request(server)
     .post('/user/login')
     .send({
@@ -53,7 +51,6 @@ describe('Login', () => {
     })
   })
   it('Post invalid Email', (done) => {
-    // this.timeout(1000)
     chai.request(server)
     .post('/user/login')
     .send({
@@ -86,7 +83,7 @@ describe('Register', () => {
         res.body.should.be.an('object')
         done()
       }else{
-        res.status.should.equal(400)
+        res.status.should.equal(500)
       }
       done()
     })
@@ -104,7 +101,7 @@ describe('Register', () => {
     .end((err, res) => {
       if(err){
         res.body.should.be.an('object')
-        res.status.should.equal(400)
+        res.status.should.equal(500)
       }else{
         res.status.should.equal(200)
       }
@@ -124,7 +121,7 @@ describe('Register', () => {
     .end((err, res) => {
       if(err){
         res.body.should.be.an('object')
-        res.status.should.equal(400)
+        res.status.should.equal(500)
       }else{
         res.status.should.equal(200)
       }
@@ -144,7 +141,7 @@ describe('Register', () => {
     .end((err, res) => {
       if(err){
         res.body.should.be.an('object')
-        res.status.should.equal(400)
+        res.status.should.equal(500)
       }else{
         res.status.should.equal(200)
       }

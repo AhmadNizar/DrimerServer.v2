@@ -21,7 +21,7 @@ const history = new Schema({
     default: Date.now
   },
   drinkTime: [{
-    type: String,
+    type: String
   }]
 })
 
