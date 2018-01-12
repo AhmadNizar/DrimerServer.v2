@@ -16,7 +16,6 @@ describe('App', () => {
   })
 })
 
-
 describe('Login', () => {
   it('Post Email and Password', (done) => {
     // this.timeout(10000)
@@ -160,7 +159,6 @@ describe('History Test', ()=>{
     .get('/history')
     .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4MzRhMzZmMDc5NDFjM2U5MzY2OTgiLCJuYW1lIjoiY2hhbmRyYSBQb2xpIiwiZW1haWwiOiJwb3BvQG1haWwuY29tIiwiYWdlIjoyNSwiZ2VuZGVyIjoibWFsZSIsInN1Z2VzdCI6bnVsbH0sImlhdCI6MTUxNTczMDEwMH0.SEi1a44IJYZLgrlWfvITgo-FClTbyFJlSAx3OuGwwvM')
     .end((err, res) => {
-      console.log('find', res.body)
       res.body.should.be.an('array')
       res.body[0].should.have.property('userHistory')
       res.body[0].should.have.property('drinkWater')
@@ -184,7 +182,6 @@ describe('History Test', ()=>{
       'drinkTime': []
     })
     .end((err, res) => {
-      console.log(res)
       res.body.should.be.an('object')
       res.status.should.equal(200)
       res.body.should.have.property('drinkWater')

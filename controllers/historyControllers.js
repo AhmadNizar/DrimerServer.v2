@@ -20,7 +20,6 @@ const createHistoryUser = (req,res) => {
     dayWeather : req.body.dayWeather,
   })
   .then(result => {
-    console.log('ini controller', result)
     res.status(200).send(result)
   })
   .catch(err => {
