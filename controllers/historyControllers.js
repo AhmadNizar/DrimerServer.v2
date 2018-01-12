@@ -15,15 +15,15 @@ const createHistoryUser = (req,res) => {
     userHistory : req.body.userHistory,
     drinkWater : req.body.drinkWater,
     stepDay : req.body.stepDay,
-    dayWeather : req.body.dayWeather,
     createdAt: req.body.createdAt,
-    drinkTime: req.body.drinkTime
+    drinkTime: req.body.drinkTime,
+    dayWeather : req.body.dayWeather,
   })
   .then(result =>{
-    res.send(result)
+    res.status(200).send(result)
   })
   .catch(err => {
-    res.send(err)
+    res.status(400).send(err)
   })
 }
 

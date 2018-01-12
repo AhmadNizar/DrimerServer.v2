@@ -42,11 +42,17 @@ var loginUser = (req,res)=>{
     }else{
       if(bcrypt.compareSync(req.body.password, result.password)){
         var token = jwt.sign({
-          _id:result._id,
-          email: result.email,
-          name: result.name
+          isLogin: true,
+          userData: {
+            _id:result._id,
+            name: result.name,
+            email: result.email,
+            age: result.age,
+            gender: result.gender,
+            sugest: result.sugest
+          }
         },'halo')
-        res.status(200).send({userToken: token})
+        res.status(200).send(token)
       }else{
         res.status(404).send({loginStatus: 'Invalid'})
       }
@@ -74,7 +80,7 @@ var editUser = (req,res) => {
     name: req.body.name,
     password: req.body.password,
     email: req.body.email,
-    age: req.body.email,
+    age: req.body.age,
     gender: req.body.gender,
     sugest: req.body.sugest
   })
