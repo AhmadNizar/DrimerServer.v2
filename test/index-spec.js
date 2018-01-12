@@ -158,27 +158,35 @@ describe('History Test', ()=>{
   it('Get Data History from /history', function(done){
     chai.request(server)
     .get('/history')
+    .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4MzRhMzZmMDc5NDFjM2U5MzY2OTgiLCJuYW1lIjoiY2hhbmRyYSBQb2xpIiwiZW1haWwiOiJwb3BvQG1haWwuY29tIiwiYWdlIjoyNSwiZ2VuZGVyIjoibWFsZSIsInN1Z2VzdCI6bnVsbH0sImlhdCI6MTUxNTczMDEwMH0.SEi1a44IJYZLgrlWfvITgo-FClTbyFJlSAx3OuGwwvM')
     .end((err, res) => {
+      console.log('find', res.body)
       res.body.should.be.an('array')
+      res.body[0].should.have.property('userHistory')
+      res.body[0].should.have.property('drinkWater')
+      res.body[0].should.have.property('stepDay')
+      res.body[0].should.have.property('dayWeather')
+      res.body[0].should.have.property('createdAt')
+      res.body[0].should.have.property('drinkTime')
       done()
     })
   })
-  it('Post data to Histroty from /history', (done)=>{
+  it('Post data to History from /history', (done)=>{
     chai.request(server)
     .post('/history')
+    .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4MzRhMzZmMDc5NDFjM2U5MzY2OTgiLCJuYW1lIjoiY2hhbmRyYSBQb2xpIiwiZW1haWwiOiJwb3BvQG1haWwuY29tIiwiYWdlIjoyNSwiZ2VuZGVyIjoibWFsZSIsInN1Z2VzdCI6bnVsbH0sImlhdCI6MTUxNTczMDEwMH0.SEi1a44IJYZLgrlWfvITgo-FClTbyFJlSAx3OuGwwvM')
     .send({
-      'userHistory':'5a574dce397fbd00101e004b',
-      'drinkWater':'2',
-      'stepDay':'1234',
+      'userHistory':'5a5834a36f07941c3e936698',
+      'drinkWater':4,
+      'stepDay':1234,
       'dayWeather':'Clouds',
-      'createdAt': '0980',
-      'drinkTime': '098123908'
+      'createdAt': Date.now(),
+      'drinkTime': []
     })
     .end((err, res) => {
-      console.log(res.body)
+      console.log(res)
       res.body.should.be.an('object')
       res.status.should.equal(200)
-      res.body.should.have.property('userHistory')
       res.body.should.have.property('drinkWater')
       res.body.should.have.property('stepDay')
       res.body.should.have.property('dayWeather')
