@@ -34,7 +34,7 @@ class UserCtrl {
   }
 
   static async loginUser (req, res) {
-    
+
     try {
       let userDataObj = await User.findOne({ email: req.body.email })
       if( userDataObj === null ) {
@@ -77,17 +77,16 @@ class UserCtrl {
 
     try {
       let userData = await User.findById(req.params.id)
-      async userData => {
-        userData.name     = req.body.name || userData.name,
-        userData.password = req.body.password || userData.password,
-        userData.email    = req.body.email || userData.email,
-        userData.age      = req.body.age || userData.age,
-        userData.gender   = req.body.gender || userData.gender,
-        userData.sugest   = req.body.sugest || userData.sugest
 
-        let newUserData = await userData.save()
-        res.status(200).send(newUserData)
-      }
+      userData.name     = req.body.name || userData.name,
+      userData.password = req.body.password || userData.password,
+      userData.email    = req.body.email || userData.email,
+      userData.age      = req.body.age || userData.age,
+      userData.gender   = req.body.gender || userData.gender,
+      userData.sugest   = req.body.sugest || userData.sugest
+
+      let newUserData = await userData.save()
+      res.status(200).send(newUserData)
     } catch (err) {
       res.status(500).send(err)
     }

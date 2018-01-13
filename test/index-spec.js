@@ -187,3 +187,22 @@ describe('History Test', ()=>{
     })
   })
 })
+
+describe('Update user data', () => {
+  it('Can update user data', (done) => {
+    chai.request(server)
+    .put('/user/edit/5a583e68b3f2d100100120c6')
+    .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4M2U2OGIzZjJkMTAwMTAwMTIwYzYiLCJuYW1lIjoiQW1lbGlhIFJhaG1hbiIsImVtYWlsIjoiYW1lbC5yYWhtYW41QGdtYWlsLmNvbSIsImFnZSI6MjQsImdlbmRlciI6IkZlbWFsZSJ9LCJpYXQiOjE1MTU4MjExNzV9.V0YGQ5-JQobYgSfbTAISIVcOxAqIb6XKmbvznaFiXto')
+    .send({
+      'name'  : 'Amel Ajah',
+      'age'   : 30,
+      'gender': 'Female',
+    })
+    .end((err, res) => {
+      console.log(res.body)
+      res.body.should.be.an('object')
+      res.status.should.equal(200)
+      done()
+    })
+  })
+})
