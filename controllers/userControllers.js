@@ -33,34 +33,35 @@ class UserCtrl {
     }
   }
 
-  static loginUser (req, res) {
+  static async loginUser (req, res) {
+    
+    try {
+      let userDataObj = await User.findOne({ email: req.body.email })
+      if( userDataObj === null ) {
+        res.status(404).send({loginStatus: 'invalid'})
+      } else {
+        let comparePasswordResult = await bcrypt.compare(req.body.password, userDataObj.password)
 
-    User.findOne({
-      email: req.body.email
-    })
-    .then(result => {
-      if(result === null){
-        res.status(404).send({loginStatus: 'Invalid'})
-      }else{
-        if(bcrypt.compareSync(req.body.password, result.password)){
-          let token = jwt.sign({
-            isLogin : true,
-            userData: {
-              _id     :result._id,
-              name    : result.name,
-              email   : result.email,
-              age     : result.age,
-              gender  : result.gender,
-              sugest  : result.sugest
-            }
-          })
-          res.status(200).send(token)
+        if (comparePasswordResult) {
+          let userToken = jwt.sign({
+              isLogin : true,
+              userData : {
+                _id   : userDataObj._id,
+                name  : userDataObj.name,
+                email : userDataObj.email,
+                age   : userDataObj.age,
+                gender: userDataObj.gender,
+                sugest: userDataObj.sugest
+              }
+            }, 'halo')
+            res.status(200).send({userToken})
         } else {
-          res.status(404).send({loginStatus: 'Invalid'})
+          res.status(404).send({loginStatus: 'invalid'})
         }
       }
-    })
-    .catch(err => res.status(500).send(err))
+    } catch (e) {
+      res.status(500).send(e)
+    }
   }
 
   static async deleteUser (req, res) {

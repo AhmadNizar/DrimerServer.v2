@@ -10,7 +10,6 @@ describe('App', () => {
     chai.request(server)
     .get('/')
     .end((err,res) => {
-      console.log(res.body)
       res.body.should.be.an('array')
       done()
     })
@@ -22,17 +21,14 @@ describe('Login', () => {
     chai.request(server)
     .post('/user/login')
     .send({
-      'email':'h@gmail.com',
-      'password':'1234567'
+      'email':'coba@gmail.com',
+      'password':'coba'
     })
     .end((err, res)=>{
       if(!err){
         res.body.should.be.an('object')
         res.status.should.equal(200)
         res.body.should.have.property('userToken')
-        done()
-      }else{
-        res.status.should.equal(404)
         done()
       }
     })
