@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken')
 
-const isLogin = (req, res, next) => {
-  jwt.verify(req.headers.token, 'halo' , (err,decode) => {
-    if (err) {
-      res.send ('Please Login First')
-    }else{
-      req.headers.auth = decode
-      next()
-    }
-  })  
+const isLogin = async (req, res, next) => {
+  try {
+    let decodeData = await jwt.verify(req.headers.token, 'halo')
+    req.headers.auth = decodeData
+    next()
+  } catch (e) {
+    res.status(401).send(e)
+  }
 }
 
 const authUser = (req,res,next) => {

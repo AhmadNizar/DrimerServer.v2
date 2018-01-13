@@ -32,9 +32,9 @@ class UserCtrl {
         age: req.body.age,
         gender: req.body.gender,
       })
-      res.status(200).send({userData})
-    } catch (err) {
-      res.status(500).send(err)
+      res.status(200).send(userData)
+    } catch (e) {
+      res.status(422).send(e)
     }
   }
 
@@ -90,9 +90,9 @@ class UserCtrl {
       userData.sugest   = req.body.sugest || userData.sugest
 
       let newUserData = await userData.save()
-      res.status(200).send(newUserData)
+      res.status(201).send(newUserData)
     } catch (err) {
-      res.status(500).send(err)
+      res.status(422).send(err)
     }
   }
 }
