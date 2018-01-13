@@ -16,8 +16,8 @@ describe('App', () => {
   })
 })
 
-describe('Login', () => {
-  it('Post Email and Password', (done) => {
+describe('Login testing', () => {
+  it('Posting right email and password', (done) => {
     chai.request(server)
     .post('/user/login')
     .send({
@@ -33,7 +33,7 @@ describe('Login', () => {
       }
     })
   })
-  it('Post Empty Email', (done) => {
+  it('Posting an empty email', (done) => {
     chai.request(server)
     .post('/user/login')
     .send({
@@ -43,11 +43,11 @@ describe('Login', () => {
     .end((err,res) => {
       res.body.should.be.an('object')
       res.status.should.equal(404)
-      res.body.should.have.property('loginStatus')
+      res.body.should.have.property('loginStatus').eql('invalid')
       done()
     })
   })
-  it('Post invalid Email', (done) => {
+  it('Posting an invalid email', (done) => {
     chai.request(server)
     .post('/user/login')
     .send({
@@ -57,32 +57,58 @@ describe('Login', () => {
     .end((err,res) => {
       res.body.should.be.an('object')
       res.status.should.equal(404)
-      res.body.should.have.property('loginStatus')
+      res.body.should.have.property('loginStatus').eql('invalid')
+      done()
+    })
+  })
+  it('Posting an invalid password', (done) => {
+    chai.request(server)
+    .post('/user/login')
+    .send({
+      'email'   : 'coba@gmail.com',
+      'password': 'jos'
+    })
+    .end((err, res) => {
+      res.body.should.be.an('object')
+      res.status.should.equal(404)
+      res.body.should.have.property('loginStatus').eql('invalid')
+      done()
+    })
+  })
+  it('Posting an invalid email and password', (done) => {
+    chai.request(server)
+    .post('/user/login')
+    .send({
+      'email'   : 'jos@gmail.com',
+      'password': 'jos'
+    })
+    .end((err, res) => {
+      res.body.should.be.an('object')
+      res.status.should.equal(404)
+      res.body.should.have.property('loginStatus').eql('invalid')
       done()
     })
   })
 })
 
-describe('Register', () => {
-  it('Register', (done) => {
+describe('Register testing', () => {
+  it('Register with right data', (done) => {
     chai.request(server)
     .post('/user/register')
     .send({
-      'name':'test1',
-      'password':'test1',
-      'email': 'tes@tees.com',
-      'age':'test',
-      'gender': 'test1'
+      'name'    : 'test1',
+      'password': 'test1',
+      'email'   : 'tes3@gmail.com',
+      'age'     : 20,
+      'gender'  : 'Female'
     })
     .end((err ,res) => {
       if(!err){
+        console.log('register', res.body)
         res.status.should.equal(200)
         res.body.should.be.an('object')
         done()
-      }else{
-        res.status.should.equal(500)
       }
-      done()
     })
   })
   it('Register with invalid email', (done) => {

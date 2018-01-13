@@ -13,28 +13,32 @@ class UserCtrl {
     }
   }
 
-  static async registerUser (req, res) {
-
-    const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(req.body.password, salt)
-
+  static async findUserById (req, res) {
     try {
+      res.status(200).send(await User.findById(req.params.id))
+    } catch (e) {
+      res.status(500).send(err)
+    }
+  }
+
+  static async registerUser (req, res) {
+    try {
+      const salt = await bcrypt.genSalt(10)
+      const hash = await bcrypt.hash(req.body.password, salt)
       let userData = await User.create({
         name: req.body.name,
-        salt: salt,
         password: hash,
         email: req.body.email,
         age: req.body.age,
         gender: req.body.gender,
       })
-      res.status(200).send(userData)
+      res.status(200).send({userData})
     } catch (err) {
       res.status(500).send(err)
     }
   }
 
   static async loginUser (req, res) {
-
     try {
       let userDataObj = await User.findOne({ email: req.body.email })
       if( userDataObj === null ) {
