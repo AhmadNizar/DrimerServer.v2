@@ -11,10 +11,10 @@ const isLogin = async (req, res, next) => {
 }
 
 const authUser = (req,res,next) => {
-  if(req.headers._id == req._id || req.headers.id == req._id){
+  if(req.headers.auth.isLogin){
     next()
   }else{
-    res.send("Not you authority!!!!")
+    res.status(403).send({loginStatus: 'invalid'})
   }
 }
 
