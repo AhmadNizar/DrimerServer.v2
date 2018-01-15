@@ -301,12 +301,25 @@ describe('History Test', () => {
       done()
     })
   })
+  it('Get spesific user history by user id from /history/user', (done) => {
+    chai.request(server)
+    .get('/history/user')
+    .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4MzRhMzZmMDc5NDFjM2U5MzY2OTgiLCJuYW1lIjoiY2hhbmRyYSBQb2xpIiwiZW1haWwiOiJwb3BvQG1haWwuY29tIiwiYWdlIjoyNSwiZ2VuZGVyIjoibWFsZSIsInN1Z2VzdCI6bnVsbH0sImlhdCI6MTUxNTczMDEwMH0.SEi1a44IJYZLgrlWfvITgo-FClTbyFJlSAx3OuGwwvM')
+    .end((err, res) => {
+      res.body.should.be.an('array')
+      res.body[0].should.have.property('drinkWater')
+      res.body[0].should.have.property('stepDay')
+      res.body[0].should.have.property('dayWeather')
+      res.body[0].should.have.property('createdAt')
+      res.body[0].should.have.property('drinkTime')
+      done()
+    })
+  })
   it('Post data to History from /history', (done)=>{
     chai.request(server)
     .post('/history')
     .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4MzRhMzZmMDc5NDFjM2U5MzY2OTgiLCJuYW1lIjoiY2hhbmRyYSBQb2xpIiwiZW1haWwiOiJwb3BvQG1haWwuY29tIiwiYWdlIjoyNSwiZ2VuZGVyIjoibWFsZSIsInN1Z2VzdCI6bnVsbH0sImlhdCI6MTUxNTczMDEwMH0.SEi1a44IJYZLgrlWfvITgo-FClTbyFJlSAx3OuGwwvM')
     .send({
-      'userHistory':'5a5834a36f07941c3e936698',
       'drinkWater':4,
       'stepDay':1234,
       'dayWeather':'Clouds',
@@ -328,7 +341,6 @@ describe('History Test', () => {
     chai.request(server)
     .post('/history')
     .send({
-      'userHistory':'5a5834a36f07941c3e936698',
       'drinkWater':4,
       'stepDay':1234,
       'dayWeather':'Clouds',
@@ -347,7 +359,6 @@ describe('History Test', () => {
     .post('/history')
     .set('token', 'jos')
     .send({
-      'userHistory':'5a5834a36f07941c3e936698',
       'drinkWater':4,
       'stepDay':1234,
       'dayWeather':'Clouds',
