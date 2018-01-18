@@ -13,13 +13,13 @@ class UserCtrl {
     }
   }
 
-  // static async findUserById (req, res) {
-  //   try {
-  //     res.status(200).send(await User.findById(req.params.id))
-  //   } catch (e) {
-  //     res.status(500).send(err)
-  //   }
-  // }
+  static async findUserById (req, res) {
+    try {
+      res.status(200).send(await User.findById(req.params.id))
+    } catch (e) {
+      res.status(500).send(err)
+    }
+  }
 
   static async registerUser (req, res) {
     try {
