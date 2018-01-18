@@ -92,29 +92,30 @@ describe('Login testing', () => {
 })
 
 describe('Register testing', () => {
-  // it('Register with right data', (done) => {
-  //   chai.request(server)
-  //   .post('/user/register')
-  //   .send({
-  //     'name'    : 'test1',
-  //     'password': 'test1',
-  //     'email'   : 'tes6@gmail.com',
-  //     'age'     : 20,
-  //     'gender'  : 'Female'
-  //   })
-  //   .end((err ,res) => {
-  //     if(!err){
-  //       console.log('register', res.body)
-  //       res.status.should.equal(200)
-  //       res.body.should.be.an('object')
-  //       res.body.should.have.property('name').eql('test1')
-  //       res.body.should.have.property('email').eql('tes6@gmail.com')
-  //       res.body.should.have.property('age').eql(20)
-  //       res.body.should.have.property('gender').eql('Female')
-  //       done()
-  //     }
-  //   })
-  // })
+  let userId = ''
+  it('Register with right data', (done) => {
+    chai.request(server)
+    .post('/user/register')
+    .send({
+      'name'    : 'test',
+      'password': 'test1',
+      'email'   : 'tes7@gmail.com',
+      'age'     : 20,
+      'gender'  : 'Female'
+    })
+    .end((err ,res) => {
+      if(!err){
+        userId = res.body._id
+        res.status.should.equal(200)
+        res.body.should.be.an('object')
+        res.body.should.have.property('name').eql('test')
+        res.body.should.have.property('email').eql('tes7@gmail.com')
+        res.body.should.have.property('age').eql(20)
+        res.body.should.have.property('gender').eql('Female')
+        done()
+      }
+    })
+  })
   it('Register with invalid name', (done) => {
     chai.request(server)
     .post('/user/register')
@@ -262,6 +263,17 @@ describe('Register testing', () => {
       done()
     })
   })
+  it('Delete user', (done) => {
+    chai.request(server)
+    .delete(`/user/delete/${userId}`)
+    // .send({
+    //   '_id' : '5a59d35c00958b17fb8b5e87'
+    // })
+    .end((err ,res) => {
+      res.status.should.equal(200)
+      done()
+    })
+  })
 })
 
 describe('History Test', () => {
@@ -369,6 +381,22 @@ describe('History Test', () => {
       res.body.should.have.property('name').eql('JsonWebTokenError')
       res.body.should.have.property('message').eql('jwt malformed')
       res.status.should.equal(401)
+      done()
+    })
+  })
+  it('Post invalid data to History',(done) =>{
+    chai.request(server)
+    .post('/history')
+    .set('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0xvZ2luIjp0cnVlLCJ1c2VyRGF0YSI6eyJfaWQiOiI1YTU4MzRhMzZmMDc5NDFjM2U5MzY2OTgiLCJuYW1lIjoiY2hhbmRyYSBQb2xpIiwiZW1haWwiOiJwb3BvQG1haWwuY29tIiwiYWdlIjoyNSwiZ2VuZGVyIjoibWFsZSIsInN1Z2VzdCI6bnVsbH0sImlhdCI6MTUxNTczMDEwMH0.SEi1a44IJYZLgrlWfvITgo-FClTbyFJlSAx3OuGwwvM')
+    .send({
+      'drinkWater': 'chandra',
+      'stepday': 'chandra',
+      'dayWeather':'Clouds',
+      'createdAt': Date.now(),
+      'drinkTime':[]
+    })
+    .end((err ,res) => {
+      res.status.should.equal(400)
       done()
     })
   })

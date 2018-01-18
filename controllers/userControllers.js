@@ -13,13 +13,13 @@ class UserCtrl {
     }
   }
 
-  static async findUserById (req, res) {
-    try {
-      res.status(200).send(await User.findById(req.params.id))
-    } catch (e) {
-      res.status(500).send(err)
-    }
-  }
+  // static async findUserById (req, res) {
+  //   try {
+  //     res.status(200).send(await User.findById(req.params.id))
+  //   } catch (e) {
+  //     res.status(500).send(err)
+  //   }
+  // }
 
   static async registerUser (req, res) {
     try {
@@ -71,7 +71,7 @@ class UserCtrl {
   static async deleteUser (req, res) {
     try {
       let deletedUser = await User.deleteOne({_id: req.params.id})
-      res.status(200).end(deletedUser)
+      res.status(200).send(deletedUser)
     } catch (err) {
       res.status(500).send(err)
     }
