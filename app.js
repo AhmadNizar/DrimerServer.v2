@@ -1,12 +1,13 @@
-const app = require('express')()
+const app        = require('express')()
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
+const mongoose   = require('mongoose')
+const mongoDBUrl = 'mongodb://AhmadNizar:cBnmgEXaknFbpUNN@ahmadnizardb-shard-00-00-scdlc.mongodb.net:27017,ahmadnizardb-shard-00-01-scdlc.mongodb.net:27017,ahmadnizardb-shard-00-02-scdlc.mongodb.net:27017/drimerDB?ssl=true&replicaSet=AhmadNizarDB-shard-0&authSource=admin'
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'html');
 
-mongoose.connect('mongodb://AhmadNizar:cBnmgEXaknFbpUNN@ahmadnizardb-shard-00-00-scdlc.mongodb.net:27017,ahmadnizardb-shard-00-01-scdlc.mongodb.net:27017,ahmadnizardb-shard-00-02-scdlc.mongodb.net:27017/drimerDB?ssl=true&replicaSet=AhmadNizarDB-shard-0&authSource=admin', (err) => {
+mongoose.connect(`${mongoDBUrl}`, (err) => {
   if(!err) {
     console.log('DATABASE TERHUBUNG');
   } else {
@@ -14,8 +15,8 @@ mongoose.connect('mongodb://AhmadNizar:cBnmgEXaknFbpUNN@ahmadnizardb-shard-00-00
   }
 })
 
-const index = require('./routes/index')
-const user = require('./routes/user')
+const index   = require('./routes/index')
+const user    = require('./routes/user')
 const history = require('./routes/history')
 
 app.use('/',index)
